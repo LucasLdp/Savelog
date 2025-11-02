@@ -7,6 +7,6 @@ export const user = pgTable("users", {
     .primaryKey(),
   username: varchar({ length: 255 }).notNull().unique(),
   email: varchar({ length: 255 }).notNull().unique(),
-  password: varchar({ length: 256 }).notNull(),
+  password: varchar().notNull(),
   photoUrl: varchar("photoUrl"),
 });
