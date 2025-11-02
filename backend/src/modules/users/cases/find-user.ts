@@ -9,8 +9,6 @@ export async function findUser(id: string) {
     },
   });
 
-  console.log(user);
-
   if (!user) {
     throw new NotFoundException("Usuário não encontrado");
   }
