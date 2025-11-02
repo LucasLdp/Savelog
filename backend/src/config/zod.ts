@@ -1,4 +1,4 @@
-import * as z from "zod";
+import z from "zod";
 
 z.config({
   customError: (iss: any) => {
@@ -22,8 +22,8 @@ z.config({
       return `O campo ${iss.path.join(".")} esperava um objeto`;
     }
 
-    if (iss.code === "invalid_string" && iss.validation === "email") {
-      return `E-mail inválido no campo ${iss.path.join(".")}`;
+    if (iss.code === "invalid_format" && iss.format === "email") {
+      return `E-mail inválido`;
     }
 
     if (iss.code === "invalid_string" && iss.validation === "url") {
@@ -34,13 +34,13 @@ z.config({
       return `UUID inválido no campo ${iss.path.join(".")}`;
     }
 
-    if (iss.code === "too_small" && iss.type === "string") {
+    if (iss.code === "too_small" && iss.origin === "string") {
       return `O campo ${iss.path.join(".")} deve ter no mínimo ${
         iss.minimum
       } caractere${iss.minimum !== 1 ? "s" : ""}`;
     }
 
-    if (iss.code === "too_big" && iss.type === "string") {
+    if (iss.code === "too_big" && iss.origin === "string") {
       return `O campo ${iss.path.join(".")} deve ter no máximo ${
         iss.maximum
       } caractere${iss.maximum !== 1 ? "s" : ""}`;
@@ -80,6 +80,6 @@ z.config({
       return `Campos não reconhecidos: ${iss.keys.join(", ")}`;
     }
 
-    return `Erro de validação no campo ${iss.path.join(".")}: ${iss.code}`;
+    return `Erro de validação no campo ${iss.path.join(".")}:  ${iss.code}`;
   },
 });
