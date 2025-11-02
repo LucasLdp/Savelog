@@ -1,5 +1,4 @@
 import { routes } from "@modules/shared/routes";
-import { userRouter } from "@modules/users/user.routes";
 import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
 import { openAPIRouteHandler } from "hono-openapi";
@@ -18,7 +17,7 @@ server.onError((err, c) => {
     console.error("Error occurred:", err.message);
     return c.json({ message: err.message }, err.status as ContentfulStatusCode);
   }
-  console.error("Unexpected error:", err);
+  console.error("Unexpected error occurred:", err);
   return c.json({ message: "Internal Server Error" }, 500);
 });
 
@@ -33,6 +32,16 @@ server
           version: "1.0.0",
           description: "API para o sistema Savelog",
         },
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
+        },
+        security: [{ bearerAuth: [] }],
       },
     })
   )
